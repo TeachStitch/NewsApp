@@ -24,7 +24,7 @@ enum NewsViewModelInput {
     case addToFavouritesTapped(TextNewsTableViewCellViewModelProvider)
 }
 
-enum NewsViewModelOutput {
+enum NewsViewModelOutput: Equatable {
     case showAlert(title: String, message: String)
     case updateNews(_ news: TextNews, appending: Bool)
     case showArticle(URL)

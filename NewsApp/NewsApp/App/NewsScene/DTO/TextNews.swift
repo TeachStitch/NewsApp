@@ -19,26 +19,30 @@ struct TextNews {
         let url: URL
         let imageUrl: URL
         let source: String
+    }
+}
+
+extension TextNews: Equatable { }
+
+extension TextNews.Article {
+    init?(model: TextNewsNetworkModel.Article) {
+        guard
+            let title = model.title,
+            let description = model.description,
+            let author = model.author,
+            let url = URL(string: model.urlString),
+            let imageString = model.imageUrlString,
+            let imageUrl = URL(string: imageString),
+            imageUrl.scheme == "https",
+            let source = model.source?.name
+        else { return nil }
         
-        init?(model: TextNewsNetworkModel.Article) {
-            guard
-                let title = model.title,
-                let description = model.description,
-                let author = model.author,
-                let url = URL(string: model.urlString),
-                let imageString = model.imageUrlString,
-                let imageUrl = URL(string: imageString),
-                imageUrl.scheme == "https",
-                let source = model.source?.name
-            else { return nil }
-            
-            self.title = title
-            self.description = description
-            self.author = author
-            self.url = url
-            self.imageUrl = imageUrl
-            self.source = source
-        }
+        self.title = title
+        self.description = description
+        self.author = author
+        self.url = url
+        self.imageUrl = imageUrl
+        self.source = source
     }
 }
 
